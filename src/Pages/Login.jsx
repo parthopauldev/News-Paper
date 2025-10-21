@@ -1,8 +1,9 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
+    let [error, setError] = useState('');
     let navigate=useNavigate()
     let { logIn } = use(AuthContext);
     let location = useLocation()
@@ -23,8 +24,7 @@ const Login = () => {
             })
 
             .catch(err => {
-                console.log(err.message);
-                alert(err.message)
+                  setError(err.message)
             
         })
         
@@ -40,13 +40,16 @@ const Login = () => {
                         <input type="email" name='email' required className="input" placeholder="Email" />
                         {/* password  */}
           <label className="label">Password</label>
-          <input type="password" className="input" name='password' placeholder="Password" />
+          <input type="password" className="input" required name='password' placeholder="Password" />
           <div><a className="link link-hover">Forgot password?</a></div>
                         <button type='submit' className="btn btn-neutral mt-4">Login</button>
                         
                     </fieldset>
-                    <p className='font-semibold text-center py-5'>Dont’t Have An Account ?{"  "}  <Link className='text-secondary' to='/auth/register'>Register</Link> </p>
-      </form>
+                    <p className='font-semibold text-center pt-5'>Dont’t Have An Account ?{"  "}  <Link className='text-secondary' to='/auth/register'>Register</Link> </p>
+                </form>
+                {error &&
+                <p className='text-red-500 text-center pb-5'>{ error}</p>
+                }
     </div>
         </div>
     );
