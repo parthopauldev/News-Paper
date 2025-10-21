@@ -1,13 +1,14 @@
 import React from 'react';
 import { FaBookmark, FaShareAlt, FaEye, FaStar, FaRegStar } from 'react-icons/fa';
 import { format } from 'date-fns';
+import { Link } from 'react-router';
 
 // Define the structure for the news item data
 
 
 const NewsCard = ({news}) => {
     // Destructure the data for easier access
-    const { title, total_view, author, thumbnail_url, details, rating } = news;
+    const {id, title, total_view, author, thumbnail_url, details, rating } = news;
     
     // Helper function to render star rating
     const renderRating = (num) => {
@@ -88,9 +89,9 @@ const NewsCard = ({news}) => {
                 </p>
                 
                 {/* Read More Link */}
-                <div className="text-primary font-bold cursor-pointer hover:underline text-sm">
+                <Link to={`/news-Details/${id}`} className="text-primary font-bold cursor-pointer hover:underline text-sm">
                     Read More
-                </div>
+                </Link>
             </div>
 
             {/* 3. Card Footer (Rating and Views) */}
